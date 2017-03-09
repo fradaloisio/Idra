@@ -1,10 +1,13 @@
 #! /bin/bash
-
+PIDFILE=/tmp/Idra.pid
 reborn ()
 {
-
-        ./$0 &
-        ./$0 &
+        PID=$$
+        sed -i "/$PID/d" $PIDFILE
+        ./$0 $RANDOM &
+        echo $! >> $PIDFILE
+        ./$0 $RANDOM &
+        echo $! >> $PIDFILE
 
         exit 1
 
@@ -12,9 +15,12 @@ reborn ()
 
 trap reborn SIGINT SIGQUIT SIGTERM
 
+if [[ $# -eq 0 ]] ; then
+    echo $$ > $PIDFILE
+fi
+
 while true
 do
-        echo $RANDOM
         sleep 5;
 done
 
