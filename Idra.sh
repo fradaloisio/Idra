@@ -1,5 +1,6 @@
 #! /bin/bash
 PIDFILE=/tmp/Idra.pid
+SLEEP=5
 reborn ()
 {
         PID=$$
@@ -21,7 +22,7 @@ fi
 
 while true
 do
-        sleep 5;
+        sleep $SLEEP;
 done
 
 exit 0
